@@ -1,0 +1,11 @@
+.message {
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  font-size: 0.85rem;
+  color: tomato;
+}
+
+.message .red {
+  color: rgb(156, 60, 43);
+}

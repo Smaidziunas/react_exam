@@ -1,16 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;800;900&display=swap');
 
-
 * {
   box-sizing: border-box;
   --main-font: #212121;
-  --primary-orange: #e67e22;
+  --primary-orange: #2260e6;
+  --primary-border: rgb(233, 221, 208);
+}
+
+*:focus {
+    outline: none;
 }
 
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
+  margin-bottom: 300px;
   /* background-color: #ededed; */
+  cursor: default;
 }
 
 a {
@@ -22,7 +28,7 @@ img {
   max-width: 100%;
 }
 
-inp q   t,
+inp q t,
 textarea,
 select {
   font-size: 16px;
@@ -38,7 +44,6 @@ textarea {
   resize: vertical;
 }
 
-
 li {
   list-style-type: none;
 }
@@ -53,9 +58,8 @@ p {
   margin-top: 0;
 }
 
-
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -66,7 +70,8 @@ p {
   border: 1px solid rgb(191, 180, 180);
   border-radius: 5px;
   background-color: snow;
-} */
+}
+*/
 
 /*  helpers */
 
@@ -90,13 +95,11 @@ p {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
-} 
-
-
+}
 
 .nav-link.active {
   /* border: 1px solid #000; */
-    border-bottom: 2px solid var(--primary-orange);
-
+  border-bottom: 2px solid var(--primary-orange);
 }
+
 

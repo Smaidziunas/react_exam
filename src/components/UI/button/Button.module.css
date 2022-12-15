@@ -9,6 +9,7 @@ color: var(--main-font);
 
 
 display: flex;
+cursor: pointer;
 flex-direction: row;
 justify-content: center;
 align-items: center;
@@ -21,4 +22,26 @@ height: 2rem;
 
 border: 1px solid rgba(46, 46, 46, 0.85);
 border-radius: 20px;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  border: none;
+  cursor: pointer;
+  line-height: 1.75;
+  text-transform: uppercase;
+  min-width: 64px;
+  color: #fff;
+  background-color: #7f28e2;
+  width: 100%;
+  font-weight: 700;
+  padding: 16px 40px;
+  font-size: 1rem;
+  box-shadow: none;
+  margin-top: 24px;
+  margin-bottom: 16px;
 }

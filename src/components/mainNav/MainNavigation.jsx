@@ -37,7 +37,9 @@ function MainNavigation(props) {
               </NavLink>
             </li>
             <li>
-              <Button>Logout</Button>
+              <Button onClick={() => console.log('clicked')} btn>
+                Logout
+              </Button>
             </li>
           </ul>
         </div>

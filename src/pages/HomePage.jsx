@@ -1,4 +1,8 @@
 function HomePage(props) {
-  return <div>HomePage</div>;
+  return (
+    <div>
+      <h1>this is home page</h1>
+    </div>
+  );
 }
 export default HomePage;

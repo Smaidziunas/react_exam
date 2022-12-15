@@ -1,7 +1,7 @@
 function HomePage(props) {
   return (
     <div className='container'>
-      <h1>this is home page</h1>
+      <h1>Welcome!</h1>
     </div>
   );
 }

@@ -3,6 +3,8 @@ import Button from '../UI/button/Button';
 import css from './MainNavigation.module.css';
 
 function MainNavigation(props) {
+  const isUserLoggedIn = false;
+
   return (
     <header className={`${css.container} ${css.flex}`}>
       <Link to='/'>
@@ -16,31 +18,41 @@ function MainNavigation(props) {
                 Home
               </NavLink>
             </li>
-            <li>
-              <NavLink className='nav-link' to='/register'>
-                Sign Up
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className='nav-link' to='/login'>
-                Log in
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className='nav-link' to='/add-shop'>
-                Add Shop
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className='nav-link' to='/shops'>
-                Shops
-              </NavLink>
-            </li>
-            <li>
-              <Button onClick={() => console.log('clicked')} btn>
-                Logout
-              </Button>
-            </li>
+            {!isUserLoggedIn && (
+              <li>
+                <NavLink className='nav-link' to='/register'>
+                  Sign Up
+                </NavLink>
+              </li>
+            )}
+            {!isUserLoggedIn && (
+              <li>
+                <NavLink className='nav-link' to='/login'>
+                  Log in
+                </NavLink>
+              </li>
+            )}
+            {isUserLoggedIn && (
+              <li>
+                <NavLink className='nav-link' to='/add-shop'>
+                  Add Shop
+                </NavLink>
+              </li>
+            )}
+            {isUserLoggedIn && (
+              <li>
+                <NavLink className='nav-link' to='/shops'>
+                  Shops
+                </NavLink>
+              </li>
+            )}
+            {isUserLoggedIn && (
+              <li>
+                <Button onClick={() => console.log('clicked')} btn>
+                  Logout
+                </Button>
+              </li>
+            )}
           </ul>
         </div>
       </nav>

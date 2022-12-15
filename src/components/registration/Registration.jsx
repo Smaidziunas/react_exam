@@ -41,14 +41,6 @@ function RegistrationForm(props) {
     }),
     onSubmit: (values) => {
       console.log('values ===', values);
-
-      // alert(JSON.stringify(values, null, 2));
-
-      // sutvarkyti tags
-      // values.tags = stringTagsToArr(values.tagsStringInput);
-
-      // siusti duomenis su fetch
-      // sendFetch(values).then((dataInJs) => {});
     },
   });
   return (

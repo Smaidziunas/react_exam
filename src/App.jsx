@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
-import Layout from './components/Layout';
+import Layout from './components/Layout/Layout';
 import AddShopPage from './pages/AddShopPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';

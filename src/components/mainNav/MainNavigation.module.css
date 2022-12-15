@@ -1,0 +1,42 @@
+ .container {
+  max-width: 1400px;
+}
+
+.div {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navUl {
+  text-align: center;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.navUl li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0 1.5em;
+  overflow: hidden;
+  /* height: 3rem;
+  line-height: 3rem; */
+}
+.navUl a {
+  padding: 0.1em 0;
+  color: var(--main-font);
+  position: relative;
+  display: inline-block;
+  letter-spacing: 1px;
+  margin: 0;
+  text-decoration: none;
+} 
+
+
+
+
+

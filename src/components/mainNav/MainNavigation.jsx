@@ -1,13 +1,21 @@
-import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import Button from '../UI/button/Button';
 import css from './MainNavigation.module.css';
 
 function MainNavigation(props) {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  // IMPORTING CONTEXT:
+  // const ctx = useContext(AuthContext);
+  // console.log('ctx ===', ctx);
+
+  //
+
+  let history = useHistory();
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const handleLogout = () => {
     setIsUserLoggedIn((prevState) => !prevState);
+    history.push('/register');
   };
 
   return (

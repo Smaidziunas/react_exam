@@ -5,7 +5,8 @@ import InputError from '../UI/inputError/InputError';
 import Container from '../UI/container/Container';
 import Button from '../UI/button/Button';
 import { useHistory } from 'react-router-dom';
-
+import { useState } from 'react';
+import useRedirect from '../hooks/UseRedirect';
 /* APRASYMAS
 Register puslapis
 Šis puslapis turės meniu juostą (logotipas, login ir register nuorodos), 
@@ -23,6 +24,15 @@ Siunčiamas objektas I back { email: ‘’, password: ‘’ }
 */
 
 function RegistrationForm(props) {
+  //  ============== User Log in State =============
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+
+  //
+  const handleLogout = () => {
+    setIsUserLoggedIn((prevState) => !prevState);
+  };
+  // ==========================================
+
   let history = useHistory();
 
   const formik = useFormik({
@@ -42,10 +52,47 @@ function RegistrationForm(props) {
         .required('required field'),
       password: Yup.string().min(4).max(20).required(),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log('values ===', values);
+
+      let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
+        import.meta.env.VITE_API_KEY
+      }`;
+      // let url =
+      //   'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
+
+      if (props.register) {
+        const [sendResult, postError] = await sendRequest(values, url);
+        // sendRequest(whatToSend, url);
+        // jeigu turim klaidu:
+        if (postError) {
+          console.log('postError ===', postError);
+          // FORMIK ERRORS <<<<BE>>>>:
+          formik.setErrors({
+            email:
+              postError.error.message === 'INVALID_EMAIL'
+                ? 'invalid email'
+                : '',
+            email:
+              postError.error.message === 'EMAIL_EXISTS'
+                ? `such user already exist`
+                : '',
+            // password:
+            //   postError.error.message === 'WEAK_PASSWORD'
+            //     ? 'password is too weak'
+            //     : 'check your password again',
+            password: postError.error.message.split(':')[1],
+          });
+          // ==========================
+          return;
+        }
+        // jeigu nera klaidu:
+        console.log('sendResult ===', sendResult);
+        history.push('/shops');
+      }
     },
   });
+
   return (
     <Container className={css.container}>
       {props.register ? <h2>Register</h2> : <h2>Log in</h2>}
@@ -67,7 +114,11 @@ function RegistrationForm(props) {
         debug <br /> email: {formik.values.email} <br />
         password: {formik.values.password}
       </h3> */}
-      <form className={css.control} onSubmit={formik.handleSubmit}>
+      <form
+        className={css.control}
+        onSubmit={formik.handleSubmit}
+        // autoComplete='off'
+      >
         <div>
           <label htmlFor='Email'>Email</label>
           <input
@@ -93,6 +144,7 @@ function RegistrationForm(props) {
             }
             name='password'
           />
+          {/* // FORMIK ERRORS <<<<FE>>>> */}
           <InputError formik={formik} field={'password'} />
         </div>
         <Button secondary>
@@ -101,9 +153,39 @@ function RegistrationForm(props) {
             : 'Login with existing account'}
         </Button>
         {/* <p>Forgot password?</p> */}
-        <button>BACK TO LOGIN</button>
+        <button type='button' onClick={handleLogout}>
+          {isUserLoggedIn
+            ? 'Create new account'
+            : 'Login with existing account'}
+        </button>
       </form>
     </Container>
   );
 }
 export default RegistrationForm;
+
+///// =============================== ASYNC SEND REQUEST()
+async function sendRequest(whatToSend, url) {
+  console.log('url ===', url);
+  try {
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(whatToSend),
+    });
+    if (!resp.ok) {
+      throw await resp.json();
+    }
+    const result = await resp.json();
+    // console.log('result ===', result);
+    // viskas ivyko gerai
+    return [result, null];
+  } catch (error) {
+    // console.warn('klaida sendRequest', error);
+    return [null, error];
+  }
+  // issiusti su fetch post requesta ir paduoti i body duomenis is whatToSend
+  // isspausdinti atsakykma
+  // isspausdinti gauta idTokena
+  // issiusti uzklausa su jau sukurtu email dar karta ir isspausdinti klaida.
+}

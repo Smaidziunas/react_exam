@@ -1,4 +1,4 @@
-import RegistrationForm from '../components/registration/Registration';
+import RegistrationForm from '../components/auth/Registration';
 
 function RegisterPage(props) {
   return (

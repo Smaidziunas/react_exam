@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 // NEBUTINA, padaro AUTOCOMPLETE
 export const AuthContext = createContext({
@@ -17,15 +17,18 @@ function AuthContextProvider(props) {
   const isUserLoggedIn = !!token;
   // when token is SET, token = true; if not set, then = false
 
-  const login = () => {};
-  const logout = () => {};
+  const login = (argToken) => {
+    setToken(argToken);
+  };
+  const logout = () => {
+    setToken('');
+  };
 
-  // const contextValue = {
+  // const contextValue = { // KADANGI VIENODOS, GALIME NERASYTI 2x:
   //   login: login,
   //   logout: logout,
   //   isUserLoggedIn: isUserLoggedIn,
   // };
-  // KADANGI VIENODOS, GALIME NERASYTI 2x:
 
   const contextValue = {
     login,
@@ -34,9 +37,14 @@ function AuthContextProvider(props) {
   };
 
   return (
-    <AuthContext.Provider value={{ contextValue }}>
+    <AuthContext.Provider value={contextValue}>
       {props.children}
     </AuthContext.Provider>
   );
 }
 export default AuthContextProvider;
+
+// custom hook pasiimti konteksta be importu:
+export function useAuthCtx() {
+  return useContext(AuthContext);
+}

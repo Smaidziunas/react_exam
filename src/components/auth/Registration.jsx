@@ -6,7 +6,7 @@ import Container from '../UI/container/Container';
 import Button from '../UI/button/Button';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import useRedirect from '../hooks/UseRedirect';
+import { useAuthCtx } from '../../store/AuthContext';
 /* APRASYMAS
 Register puslapis
 Šis puslapis turės meniu juostą (logotipas, login ir register nuorodos), 
@@ -24,13 +24,16 @@ Siunčiamas objektas I back { email: ‘’, password: ‘’ }
 */
 
 function RegistrationForm(props) {
-  //  ============== User Log in State =============
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  // IMPORTING CONTEXT
+  const { login } = useAuthCtx();
 
-  //
-  const handleLogout = () => {
-    setIsUserLoggedIn((prevState) => !prevState);
-  };
+  //  ============== User Log in State =============
+  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+
+  // //
+  // const handleLogout = () => {
+  //   setIsUserLoggedIn((prevState) => !prevState);
+  // };
   // ==========================================
 
   let history = useHistory();
@@ -68,19 +71,18 @@ function RegistrationForm(props) {
         if (postError) {
           console.log('postError ===', postError);
           // FORMIK ERRORS <<<<BE>>>>:
+          const emailErrorValidation = () => {
+            switch (postError.error.message) {
+              case 'INVALID_EMAIL':
+                return 'invalid email';
+              case 'EMAIL_EXISTS':
+                return 'such user already exist';
+              default:
+                break;
+            }
+          };
           formik.setErrors({
-            email:
-              postError.error.message === 'INVALID_EMAIL'
-                ? 'invalid email'
-                : '',
-            email:
-              postError.error.message === 'EMAIL_EXISTS'
-                ? `such user already exist`
-                : '',
-            // password:
-            //   postError.error.message === 'WEAK_PASSWORD'
-            //     ? 'password is too weak'
-            //     : 'check your password again',
+            email: emailErrorValidation(),
             password: postError.error.message.split(':')[1],
           });
           // ==========================
@@ -89,6 +91,7 @@ function RegistrationForm(props) {
         // jeigu nera klaidu:
         console.log('sendResult ===', sendResult);
         history.push('/shops');
+        login(sendResult.idToken);
       }
     },
   });
@@ -153,10 +156,10 @@ function RegistrationForm(props) {
             : 'Login with existing account'}
         </Button>
         {/* <p>Forgot password?</p> */}
-        <button type='button' onClick={handleLogout}>
-          {isUserLoggedIn
+        <button type='button' onClick={() => console.log('clicked')}>
+          {/* {isUserLoggedIn
             ? 'Create new account'
-            : 'Login with existing account'}
+            : 'Login with existing account'} */}
         </button>
       </form>
     </Container>

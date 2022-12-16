@@ -1,27 +1,27 @@
-import { useState, useContext } from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { AuthContext, useAuthCtx } from '../../store/AuthContext';
 import Button from '../UI/button/Button';
 import css from './MainNavigation.module.css';
 
-function MainNavigation(props) {
+const MainNavigation = () => {
   // IMPORTING CONTEXT:
+  const { isUserLoggedIn, logout, login } = useAuthCtx();
   // const ctx = useContext(AuthContext);
-  // console.log('ctx ===', ctx);
-
-  //
-
-  let history = useHistory();
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-
-  const handleLogout = () => {
-    setIsUserLoggedIn((prevState) => !prevState);
-    history.push('/register');
-  };
+  // console.log('ctx ===', ctx.isUserLoggedIn);
+  // DESTRUCTURING IsUserLoggedIn part FROM context
+  console.log('isUserLoggedIn ===', isUserLoggedIn);
 
   return (
     <header className={`${css.container} ${css.flex}`}>
       <Link to='/'>
-        <div onClick={handleLogout}>LOGO</div>
+        <div
+          onClick={() => {
+            login('log');
+          }}
+        >
+          LOGO
+        </div>
       </Link>
       <nav>
         <div className={css.div}>
@@ -61,7 +61,12 @@ function MainNavigation(props) {
             )}
             {isUserLoggedIn && (
               <li>
-                <Button onClick={handleLogout} btn>
+                <Button
+                  onClick={() => {
+                    logout();
+                  }}
+                  btn
+                >
                   Logout
                 </Button>
               </li>
@@ -71,6 +76,6 @@ function MainNavigation(props) {
       </nav>
     </header>
   );
-}
+};
 
 export default MainNavigation;

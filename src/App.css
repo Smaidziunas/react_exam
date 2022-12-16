@@ -46,7 +46,7 @@ p {
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 50px 20px;
 }
 
 
@@ -80,5 +80,4 @@ p {
   /* border: 1px solid #000; */
   border-bottom: 2px solid var(--primary-orange);
 }
-
 

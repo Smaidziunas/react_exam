@@ -25,7 +25,7 @@ Siunčiamas objektas I back { email: ‘’, password: ‘’ }
 
 function RegistrationForm(props) {
   // IMPORTING CONTEXT
-  const { login } = useAuthCtx();
+  const { login, isUserLoggedIn } = useAuthCtx();
 
   //  ============== User Log in State =============
   // const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
@@ -61,38 +61,48 @@ function RegistrationForm(props) {
       let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
         import.meta.env.VITE_API_KEY
       }`;
-      // let url =
-      //   'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
 
-      if (props.register) {
-        const [sendResult, postError] = await sendRequest(values, url);
-        // sendRequest(whatToSend, url);
-        // jeigu turim klaidu:
-        if (postError) {
-          console.log('postError ===', postError);
-          // FORMIK ERRORS <<<<BE>>>>:
-          const emailErrorValidation = () => {
-            switch (postError.error.message) {
-              case 'INVALID_EMAIL':
-                return 'invalid email';
-              case 'EMAIL_EXISTS':
-                return 'such user already exist';
-              default:
-                break;
-            }
-          };
-          formik.setErrors({
-            email: emailErrorValidation(),
-            password: postError.error.message.split(':')[1],
-          });
-          // ==========================
-          return;
-        }
-        // jeigu nera klaidu:
-        console.log('sendResult ===', sendResult);
-        history.push('/shops');
-        login(sendResult.idToken);
+      let isUserLoggedIn = true;
+      if (isUserLoggedIn)
+        url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
+          import.meta.env.VITE_API_KEY
+        }`;
+
+      // FOR SIGN UP let url =
+      //   'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
+      // FOR LOGIN  let url =
+      //   'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]';
+
+      const [sendResult, postError] = await sendRequest(values, url);
+      // sendRequest(whatToSend, url);
+      // jeigu turim klaidu:
+      if (postError) {
+        console.log('postError ===', postError);
+        // FORMIK ERRORS <<<<BE>>>>:
+        const emailErrorValidation = () => {
+          switch (postError.error.message) {
+            case 'INVALID_EMAIL':
+              return 'invalid email';
+            case 'EMAIL_EXISTS':
+              return 'such user already exist';
+            default:
+              break;
+          }
+        };
+        formik.setErrors({
+          email: emailErrorValidation(),
+          password: postError.error.message.includes(':')
+            ? postError.error.message.split(':')[1]
+            : postError.error.message,
+        });
+        // ==========================
+        return;
       }
+      // jeigu nera klaidu:
+      console.log('sendResult ===', sendResult);
+      history.push('/shops');
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      login(sendResult.idToken);
     },
   });
 

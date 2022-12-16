@@ -1,14 +1,19 @@
+import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Button from '../UI/button/Button';
 import css from './MainNavigation.module.css';
 
 function MainNavigation(props) {
-  const isUserLoggedIn = false;
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+
+  const handleLogout = () => {
+    setIsUserLoggedIn((prevState) => !prevState);
+  };
 
   return (
     <header className={`${css.container} ${css.flex}`}>
       <Link to='/'>
-        <div>LOGO</div>
+        <div onClick={handleLogout}>LOGO</div>
       </Link>
       <nav>
         <div className={css.div}>
@@ -48,7 +53,7 @@ function MainNavigation(props) {
             )}
             {isUserLoggedIn && (
               <li>
-                <Button onClick={() => console.log('clicked')} btn>
+                <Button onClick={handleLogout} btn>
                   Logout
                 </Button>
               </li>

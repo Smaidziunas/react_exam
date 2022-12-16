@@ -5,7 +5,7 @@ function LoginPage(props) {
     <div className='container'>
       <h1>LoginPage</h1>
       <p>turi menu</p>
-      <RegistrationForm />
+      <RegistrationForm login />
     </div>
   );
 }

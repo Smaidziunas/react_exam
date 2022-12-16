@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import InputError from '../UI/inputError/InputError';
 import Container from '../UI/container/Container';
 import Button from '../UI/button/Button';
+import { useHistory } from 'react-router-dom';
 
 /* APRASYMAS
 Register puslapis
@@ -22,6 +23,8 @@ Siunčiamas objektas I back { email: ‘’, password: ‘’ }
 */
 
 function RegistrationForm(props) {
+  let history = useHistory();
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -34,7 +37,7 @@ function RegistrationForm(props) {
     validationSchema: Yup.object().shape({
       email: Yup.string()
         .trim()
-        .min(4, 'too email is too short')
+        .min(4, 'entered email is too short')
         .max(120)
         .required('required field'),
       password: Yup.string().min(4).max(20).required(),
@@ -45,9 +48,21 @@ function RegistrationForm(props) {
   });
   return (
     <Container className={css.container}>
-      <h2>Register</h2>
-      <span></span>
-      {/* <p className={css.notAMember}>Not a member yet? Sign Up here</p> */}
+      {props.register ? <h2>Register</h2> : <h2>Log in</h2>}
+      <i></i>
+      {props.register && (
+        <p className={css.notAMember}>
+          Already a member?{' '}
+          <span
+            className={css.toLogin}
+            onClick={() => {
+              history.push('/login');
+            }}
+          >
+            Login Here
+          </span>
+        </p>
+      )}
       {/* <h3>
         debug <br /> email: {formik.values.email} <br />
         password: {formik.values.password}
@@ -73,13 +88,20 @@ function RegistrationForm(props) {
             onBlur={formik.handleBlur}
             value={formik.values.password}
             type='password'
-            placeholder='Create Password'
+            placeholder={
+              props.register ? 'Create Password' : 'Enter Your Password'
+            }
             name='password'
           />
           <InputError formik={formik} field={'password'} />
         </div>
-        <Button secondary>Create Account</Button>
+        <Button secondary>
+          {props.register
+            ? 'Create new account'
+            : 'Login with existing account'}
+        </Button>
         {/* <p>Forgot password?</p> */}
+        <button>BACK TO LOGIN</button>
       </form>
     </Container>
   );

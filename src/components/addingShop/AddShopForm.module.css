@@ -1,0 +1,54 @@
+.control input, textarea {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4375em;
+  color: rgba(0, 0, 0, 0.87);
+  padding: 20px;
+  box-sizing: border-box;
+  cursor: text;
+  /* display: inline-flex; */
+  align-items: center;
+  width: 100%;
+  position: relative;
+  height: 50px;
+  border: 1px solid  #b7c8ff;
+  font-family: 'Poppins', sans-serif;
+  ;
+}
+
+.control textarea {
+  /* max-width: 370px; */
+  min-height: 5rem;
+  min-width: 400px;
+  resize: none;
+}
+
+
+.control input:focus {
+border: 1px solid rgb(90, 145, 247);
+}
+.control textarea:focus {
+border: 1px solid rgb(90, 145, 247);
+}
+
+.control div {
+display: grid;
+align-items: center;
+grid-auto-flow: row;
+grid-template-columns: 100px auto;
+grid-template-rows: 60px 15px;
+padding-bottom: 20px;
+position: relative;
+}
+
+
+.control label {
+font-size: 0.85rem;
+}
+
+
+.toLogin {
+text-decoration: underline;
+cursor: pointer;
+}
+

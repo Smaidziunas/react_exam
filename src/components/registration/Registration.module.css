@@ -37,3 +37,7 @@ padding-bottom: 50px;
     text-align: center;
 }
 
+.toLogin {
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -4,7 +4,11 @@ function Button(props) {
   const btn = props.btn ? css.btn : '';
   const btnSec = props.secondary ? css.btnSecondary : '';
   return (
-    <button onClick={props.onClick} className={`${btn} ${btnSec}`}>
+    <button
+      type='submit'
+      onClick={props.onClick}
+      className={`${btn} ${btnSec}`}
+    >
       {props.children}
     </button>
   );

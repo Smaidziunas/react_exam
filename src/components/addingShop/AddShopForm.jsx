@@ -29,11 +29,11 @@ Po kiekvienu lauku individualiai atvaizduojama klaida kuri neatitinka validacijo
 function AddShopForm(props) {
   const formik = useFormik({
     initialValues: {
-      shopName: '',
-      town: '',
-      startYear: '',
-      description: '',
-      ImageUrl: '',
+      shopName: 'testing Name',
+      town: 'kaunas',
+      startYear: '1981',
+      description: 'smart products',
+      ImageUrl: 'https://picsum.photos/200/300',
       tagsStringInput: '',
       tags: [],
       userId: 1,
@@ -50,8 +50,9 @@ function AddShopForm(props) {
         .min(4, 'Town name is too short')
         .max(120)
         .required('required field'),
-      startYear: Yup.string()
-        .trim()
+      startYear: Yup.number()
+        .positive()
+        .integer()
         .min(1970, 'Year must be after 1970')
         .max(2022)
         .required('required field'),
@@ -73,10 +74,7 @@ function AddShopForm(props) {
     <Container className={css.container}>
       <h2>Enter Your Shop Details Below</h2>
       <i></i>
-      {/* <h3>
-          debug <br /> email: {formik.values.email} <br />
-          password: {formik.values.password}
-        </h3> */}
+
       <form className={css.control} onSubmit={formik.handleSubmit}>
         <div>
           <label htmlFor='shopName'>Shop name</label>
@@ -147,7 +145,6 @@ function AddShopForm(props) {
 
         {/*  */}
         <Button secondary>List Your Shop</Button>
-        {/* <p>Forgot password?</p> */}
       </form>
     </Container>
   );

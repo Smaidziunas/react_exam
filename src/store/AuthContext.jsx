@@ -5,6 +5,7 @@ export const AuthContext = createContext({
   login(token) {},
   logout() {},
   isUserLoggedIn: false,
+  token: '',
 });
 
 AuthContext.displayName = 'Auth-Context';
@@ -35,12 +36,14 @@ function AuthContextProvider(props) {
   //   login: login,
   //   logout: logout,
   //   isUserLoggedIn: isUserLoggedIn,
+  //   token: token,
   // };
 
   const contextValue = {
     login,
     logout,
     isUserLoggedIn,
+    token,
   };
 
   return (

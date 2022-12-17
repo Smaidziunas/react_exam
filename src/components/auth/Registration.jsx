@@ -7,6 +7,7 @@ import Button from '../UI/button/Button';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuthCtx } from '../../store/AuthContext';
+import { sendRequest } from '../../helpers';
 /* APRASYMAS
 Register puslapis
 Šis puslapis turės meniu juostą (logotipas, login ir register nuorodos), 
@@ -99,7 +100,7 @@ function RegistrationForm(props) {
         // ==========================
         return;
       }
-      // jeigu nera klaidu:
+      // jeigu nera klaidu:    ===============  ON SUCESSFUL SUBMIT ====================================
       console.log('sendResult ===', sendResult);
       history.push('/shops');
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -177,29 +178,3 @@ function RegistrationForm(props) {
   );
 }
 export default RegistrationForm;
-
-///// =============================== ASYNC SEND REQUEST()
-async function sendRequest(whatToSend, url) {
-  console.log('url ===', url);
-  try {
-    const resp = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(whatToSend),
-    });
-    if (!resp.ok) {
-      throw await resp.json();
-    }
-    const result = await resp.json();
-    // console.log('result ===', result);
-    // viskas ivyko gerai
-    return [result, null];
-  } catch (error) {
-    // console.warn('klaida sendRequest', error);
-    return [null, error];
-  }
-  // issiusti su fetch post requesta ir paduoti i body duomenis is whatToSend
-  // isspausdinti atsakykma
-  // isspausdinti gauta idTokena
-  // issiusti uzklausa su jau sukurtu email dar karta ir isspausdinti klaida.
-}

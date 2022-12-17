@@ -69,7 +69,6 @@ function RegistrationForm(props) {
         url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
           import.meta.env.VITE_API_KEY
         }`;
-
       // FOR SIGN UP let url =
       //   'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
       // FOR LOGIN  let url =

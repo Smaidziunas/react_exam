@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { sendRequest } from '../../helpers';
 import Button from '../UI/button/Button';
 import Container from '../UI/container/Container';
 import InputError from '../UI/inputError/InputError';
@@ -25,6 +26,15 @@ Formos laukai, validacijos:
 Po kiekvienu lauku individualiai atvaizduojama klaida kuri neatitinka validacijos.
 
 */
+
+// values
+const dummyData = {
+  image: 'https://picsum.photos/id/18/600/400',
+  title: 'Fourth fireBase post',
+  body: 'Fourth learned firebase today',
+  userId: 'aNzfUc40GpfkUXb8XVosjN7ni772',
+  archived: false,
+};
 
 function AddShopForm(props) {
   const formik = useFormik({
@@ -65,9 +75,18 @@ function AddShopForm(props) {
         .min(4, 'Enter a valid url address')
         .required('required field'),
     }),
-
+    // ==============================   FORMIK SUBMIT ==================================
     onSubmit: (values) => {
-      console.log('values ===', values);
+      const handleNewShop = async () => {
+        console.log('values ===', values);
+        const url = `${import.meta.env.VITE_REAL_DB_URL}/r-exam/shops.json`;
+        console.log('url ===', url);
+
+        const [ats, err] = await sendRequest(dummyData, url);
+        console.log('ats ===', ats);
+        console.log('err ===', err);
+      };
+      handleNewShop();
     },
   });
   return (

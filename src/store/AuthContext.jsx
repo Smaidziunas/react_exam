@@ -18,7 +18,9 @@ function AuthContextProvider(props) {
   // CHECKING IF TOKEN EXIST (virs state nes kodas yra sinchroninis, tdl ivykdomas pirmiausia):
   const tokenFromStorage = localStorage.getItem(tokenName);
   const emailFromStorage = localStorage.getItem('email');
-  const userIdFromStorage = localStorage.getItem('localId');
+  const userIdFromStorage = localStorage.getItem(
+    'localId_from_firebase_Auth_result'
+  );
   // IMPORTING AND SETTING f()
 
   // setting token:

@@ -24,4 +24,21 @@ export async function sendRequest(whatToSend, url) {
   // issiusti uzklausa su jau sukurtu email dar karta ir isspausdinti klaida.
 }
 
-export function getUserInfo() {}
+/**
+ * Transforms ONBJECT to arr
+ * @param {object} obj
+ * @returns [{id, data}]
+ */
+export function getFormInfo(obj) {
+  const dataArr = [];
+
+  for (let key in obj) {
+    dataArr.push({ id: key, ...obj[key] });
+    // Longer version
+    // const value = obj[key];
+    // dataArr.push(value);
+    // value.id = key;
+  }
+  console.log('dataArr ===', dataArr);
+  return dataArr;
+}

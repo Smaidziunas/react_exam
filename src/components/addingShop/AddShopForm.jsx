@@ -31,14 +31,14 @@ formą, kurią užpildžius – išsiųs į firebase realtime database serverį 
 // values
 const dummyData = {
   image: 'https://picsum.photos/id/18/600/400',
-  title: 'Fourth fireBase post',
-  body: 'Fourth learned firebase today',
+  title: 'Third fireBase post',
+  body: 'Third learned firebase today',
   userId: 'aNzfUc40GpfkUXb8XVosjN7ni772',
   archived: false,
 };
 
 function AddShopForm(props) {
-  const {} = useAuthCtx();
+  const { uId } = useAuthCtx();
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +49,7 @@ function AddShopForm(props) {
       ImageUrl: 'https://picsum.photos/200/300',
       tagsStringInput: '',
       tags: [],
-      userId: 1,
+      userId: uId,
       archived: false,
     },
     validationSchema: Yup.object().shape({
@@ -79,13 +79,17 @@ function AddShopForm(props) {
         .required('required field'),
     }),
     // ==============================   FORMIK SUBMIT ==================================
+
     onSubmit: (values) => {
+      values.userId = uId;
+      console.log('uId ===', uId);
       const handleNewShop = async () => {
-        console.log('values ===', values);
         const url = `${import.meta.env.VITE_REAL_DB_URL}/r-exam/shops.json`;
         console.log('url ===', url);
 
-        const [ats, err] = await sendRequest(dummyData, url);
+        const [ats, err] = await sendRequest(values, url);
+        console.log('values.userId ===', values.userId);
+        console.log('values ===', values);
         console.log('ats ===', ats);
         console.log('err ===', err);
       };

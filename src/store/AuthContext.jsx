@@ -9,19 +9,26 @@ export const AuthContext = createContext({
 
 AuthContext.displayName = 'Auth-Context';
 
+const tokenName = 'firebaseToken';
+
 function AuthContextProvider(props) {
+  // CHECKING IF TOKEN EXIST (virs state nes kodas yra sinchroninis, tdl ivykdomas pirmiausia):
+  const tokenFromStorage = localStorage.getItem(tokenName);
   // IMPORTING AND SETTING f()
 
   // setting token:
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(tokenFromStorage);
   const isUserLoggedIn = !!token;
   // when token is SET, token = true; if not set, then = false
 
   const login = (argToken) => {
     setToken(argToken);
+    //seting LocalStorage:
+    localStorage.setItem(tokenName, argToken);
   };
   const logout = () => {
     setToken('');
+    localStorage.removeItem(tokenName);
   };
 
   // const contextValue = { // KADANGI VIENODOS, GALIME NERASYTI 2x:

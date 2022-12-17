@@ -55,6 +55,7 @@ function RegistrationForm(props) {
         .required('required field'),
       password: Yup.string().min(4).max(20).required(),
     }),
+    // ==============================  ON FORMIK SUBMIT ===========================================
     onSubmit: async (values) => {
       console.log('values ===', values);
 

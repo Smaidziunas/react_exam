@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Layout from './components/Layout/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
 import AddShopPage from './pages/AddShopPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -27,12 +28,12 @@ function App() {
               <LoginPage />
             </Route>
           )}
-          <Route path='/add-shop' exact>
-            {isUserLoggedIn ? <AddShopPage /> : <UnAuthorised />}
-          </Route>
-          <Route path='/shops' exact>
-            {isUserLoggedIn ? <ShopsPage /> : <UnAuthorised />}
-          </Route>
+          <ProtectedRoute path='/add-shop' exact>
+            <AddShopPage />
+          </ProtectedRoute>
+          <ProtectedRoute path='/shops' exact>
+            <ShopsPage />
+          </ProtectedRoute>
           <Route path='/' exact>
             <Redirect to={'/home'} />
           </Route>

@@ -3,7 +3,7 @@
 * {
   box-sizing: border-box;
   --main-font: #212121;
-  --primary-orange: #2260e6;
+  --primary-blue: #2260e6;
   --primary-border: rgb(233, 221, 208);
 }
 
@@ -78,6 +78,6 @@ p {
 
 .nav-link.active {
   /* border: 1px solid #000; */
-  border-bottom: 2px solid var(--primary-orange);
+  border-bottom: 2px solid var(--primary-blue);
 }
 

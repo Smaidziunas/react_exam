@@ -65,7 +65,7 @@ const MainNavigation = () => {
                   onClick={() => {
                     logout();
                   }}
-                  btn
+                  btnNav
                 >
                   Logout
                 </Button>

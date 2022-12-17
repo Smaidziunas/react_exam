@@ -18,16 +18,12 @@ function App() {
     <div className='App'>
       <Layout>
         <Switch>
-          {!isUserLoggedIn && (
-            <Route path='/register' exact>
-              <RegisterPage />
-            </Route>
-          )}
-          {!isUserLoggedIn && (
-            <Route path='/login' exact>
-              <LoginPage />
-            </Route>
-          )}
+          <Route path='/register' exact>
+            {!isUserLoggedIn ? <RegisterPage /> : <Redirect to={'/'} />}
+          </Route>
+          <Route path='/login' exact>
+            {!isUserLoggedIn ? <LoginPage /> : <Redirect to={'/'} />}
+          </Route>
           <ProtectedRoute path='/add-shop' exact>
             <AddShopPage />
           </ProtectedRoute>

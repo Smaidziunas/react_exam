@@ -23,3 +23,5 @@ export async function sendRequest(whatToSend, url) {
   // isspausdinti gauta idTokena
   // issiusti uzklausa su jau sukurtu email dar karta ir isspausdinti klaida.
 }
+
+export function getUserInfo() {}

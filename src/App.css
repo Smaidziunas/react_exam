@@ -81,3 +81,6 @@ p {
   border-bottom: 2px solid var(--primary-blue);
 }
 
+.center {
+  justify-self: center;
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useFetch from '../components/hooks/useFetch';
 import ShopCard from '../components/shopCard/ShopCard';
+import Grid from '../components/UI/grid/Grid';
 import { getFormInfo } from '../helpers';
 
 function ShopsPage(props) {
@@ -16,14 +17,41 @@ function ShopsPage(props) {
   //   JSON.stringify(dataFromFireBase, null, 2)
   // );
 
-  // ============
+  // Data arr:
+  /*
+  ImageUrl
+  archived
+  description
+  id
+  shopName
+  startYear
+  tagsStringInput
+  town
+  userId
+  
+  */
 
   return (
     <div className='container'>
       <h1>tik athorised</h1>
       <p>turi menu</p>
+      <Grid>
+        {dataArr &&
+          dataArr.map((oneShopCard) => (
+            <li className='center' key={oneShopCard.id}>
+              {/* <h2>{oneShopCard.shopName}</h2> */}
+              <ShopCard
+                title={oneShopCard.shopName}
+                img={oneShopCard.ImageUrl}
+                description={oneShopCard.description}
+                town={oneShopCard.town}
+                year={oneShopCard.startYear}
+              />
+            </li>
+          ))}
+      </Grid>
 
-      <ShopCard />
+      {/* <ShopCard /> */}
     </div>
   );
 }

@@ -27,29 +27,22 @@ reikės transformuoti duomenis, tam turite jau aprašytą funkciją.)
 */
 function ShopCard(props) {
   return (
-    <Grid>
-      <div className={css.card}>
-        <h2 className={css.title}>Shop Name</h2>
-        <div className={css.imgDiv}>
-          <img
-            className={css.img}
-            src='https://picsum.photos/200/300'
-            alt='shop-name'
-          />
-        </div>
-        <p className={css.cardDescr}>Description</p>
-        <p className={css.pdLeftRight}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio,
-          aliquam.
-        </p>
-        <Grid shopCard cols='2'>
-          <p className={css.cardDescr}>Town</p>
-          <p className={css.txtEnd}>Kaunas</p>
-          <p className={css.cardDescr}>Start Year</p>
-          <p className={css.txtEnd}>1982</p>
-        </Grid>
+    <div className={css.card}>
+      <div className={css.titleDiv}>
+        <h3 className={css.title}>{props.title}</h3>
       </div>
-    </Grid>
+      <div className={css.imgDiv}>
+        <img className={css.img} src={props.img} alt={props.title} />
+      </div>
+      {/* <p className={css.cardDescr}>About us</p> */}
+      <p className={css.pdLeftRight}>{props.description}</p>
+      {/* <Grid shopCard cols='2'> */}
+      <p className={css.cardDescr}>Town : {props.town} </p>
+      {/* <p className={css.txtEnd}>{props.town}</p> */}
+      <p className={css.cardDescr}>Start Year : {props.year}</p>
+      {/* <p className={css.txtEnd}>{props.year}</p> */}
+      {/* </Grid> */}
+    </div>
   );
 }
 export default ShopCard;

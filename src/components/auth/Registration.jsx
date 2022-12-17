@@ -104,7 +104,7 @@ function RegistrationForm(props) {
       console.log('sendResult ===', sendResult);
       history.push('/shops');
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-      login(sendResult.idToken);
+      login({ token: sendResult.idToken, email: sendResult.email });
     },
   });
 

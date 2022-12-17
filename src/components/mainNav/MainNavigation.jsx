@@ -15,13 +15,7 @@ const MainNavigation = () => {
   return (
     <header className={`${css.container} ${css.flex}`}>
       <Link to='/'>
-        <div
-          onClick={() => {
-            login('log');
-          }}
-        >
-          LOGO
-        </div>
+        <div>LOGO</div>
       </Link>
       <nav>
         <div className={css.div}>

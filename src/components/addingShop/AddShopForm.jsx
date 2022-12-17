@@ -1,6 +1,7 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { sendRequest } from '../../helpers';
+import { useAuthCtx } from '../../store/AuthContext';
 import Button from '../UI/button/Button';
 import Container from '../UI/container/Container';
 import InputError from '../UI/inputError/InputError';
@@ -12,20 +13,20 @@ patekti galima tik prisijungus – router blocking/protectedRoute
 Įsivaizduojame kad supildę formą skuriame parduotuvės įrašą ir siunčiame į back endą.
 Šis puslapis turės meniu juostą (logotipas, shops, add-shop, logout nuorodos) bei 
 formą, kurią užpildžius – išsiųs į firebase realtime database serverį (adresą rasite 
-savo firebase konsolėje). Bet kokį atsaką, sėkmingą ar ne, atvaizduojame su atitinkamu
-notificationu.
-
-Formos laukai, validacijos: 
-
-• shopName: input - (stringas, minimum 4 simboliai, privalomas laukas )
-• town: input - (stringas, minimum 4 simboliai, privalomas laukas )
-• startYear: input (skaicius, 4 simboliai, min 1970, max 2022, privalomas laukas)
-• description: textarea - (stringas, mažiausiai 6 simboliai privalomas laukas)
-• ImageUrl: input (stringas, min 5, privalomas)
-
-Po kiekvienu lauku individualiai atvaizduojama klaida kuri neatitinka validacijos.
-
-*/
+  savo firebase konsolėje). Bet kokį atsaką, sėkmingą ar ne, atvaizduojame su atitinkamu
+  notificationu.
+  
+  Formos laukai, validacijos: 
+  
+  • shopName: input - (stringas, minimum 4 simboliai, privalomas laukas )
+  • town: input - (stringas, minimum 4 simboliai, privalomas laukas )
+  • startYear: input (skaicius, 4 simboliai, min 1970, max 2022, privalomas laukas)
+  • description: textarea - (stringas, mažiausiai 6 simboliai privalomas laukas)
+  • ImageUrl: input (stringas, min 5, privalomas)
+  
+  Po kiekvienu lauku individualiai atvaizduojama klaida kuri neatitinka validacijos.
+  
+  */
 
 // values
 const dummyData = {
@@ -37,6 +38,8 @@ const dummyData = {
 };
 
 function AddShopForm(props) {
+  const {} = useAuthCtx();
+
   const formik = useFormik({
     initialValues: {
       shopName: 'testing Name',

@@ -42,7 +42,7 @@ function RegistrationForm(props) {
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: '',
+      password: '123456',
       tagsStringInput: '',
       tags: [],
       userId: 1,
@@ -103,7 +103,7 @@ function RegistrationForm(props) {
       console.log('sendResult ===', sendResult);
       history.push('/shops');
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-      login({ token: sendResult.idToken, email: sendResult.email });
+      login(sendResult);
     },
   });
 

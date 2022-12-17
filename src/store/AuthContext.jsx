@@ -7,38 +7,48 @@ export const AuthContext = createContext({
   isUserLoggedIn: false,
   token: '',
   email: '',
+  uId: '',
 });
 
 AuthContext.displayName = 'Auth-Context';
 
-const tokenName = 'firebaseToken';
+const tokenName = 'firebaseIDToken';
 
 function AuthContextProvider(props) {
   // CHECKING IF TOKEN EXIST (virs state nes kodas yra sinchroninis, tdl ivykdomas pirmiausia):
   const tokenFromStorage = localStorage.getItem(tokenName);
   const emailFromStorage = localStorage.getItem('email');
+  const userIdFromStorage = localStorage.getItem('localId');
   // IMPORTING AND SETTING f()
 
   // setting token:
   const [token, setToken] = useState(tokenFromStorage);
-  const [emailVal, setEmailVal] = useState(emailFromStorage);
-  const isUserLoggedIn = !!token;
   // when token is SET, token = true; if not set, then = false
+  const [emailVal, setEmailVal] = useState(emailFromStorage);
+  const [uId, setUId] = useState(userIdFromStorage);
+  const isUserLoggedIn = !!token;
 
-  const login = ({ token, email }) => {
-    //setting token val
+  const login = ({ idToken: token, email, localId }) => {
+    // ON LOGIN:
+    //setting token val (token=sendresult.idToken)
     setToken(token);
     //seting LocalStorage:
     localStorage.setItem(tokenName, token);
-    // setting email val
+    // setting email val:
     setEmailVal(email);
     // seting localStorage
     localStorage.setItem('email', email);
+    // setting userID val:
+    setUId(localId);
+    // setting userID localStorage:
+    localStorage.setItem('localId_from_firebase_Auth_result', localId);
   };
+
   const logout = () => {
     setToken('');
     localStorage.removeItem(tokenName);
     localStorage.removeItem('email');
+    localStorage.removeItem('localId_from_firebase_Auth_result');
   };
 
   // const contextValue = { // KADANGI VIENODOS, GALIME NERASYTI 2x:
@@ -54,6 +64,7 @@ function AuthContextProvider(props) {
     isUserLoggedIn,
     token,
     email: emailVal,
+    uId,
   };
 
   return (

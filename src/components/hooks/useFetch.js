@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-function useFetch(url = 'http://localhost:8001/users', initVal = []) {
+function useFetch(url = '', initVal = []) {
   const [data, setData] = useState(initVal);
 
   useEffect(() => {

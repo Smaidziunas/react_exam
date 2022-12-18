@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { sendRequest } from '../../helpers';
 import { useAuthCtx } from '../../store/AuthContext';
@@ -7,48 +8,16 @@ import Container from '../UI/container/Container';
 import InputError from '../UI/inputError/InputError';
 import css from './AddShopForm.module.css';
 
-/* APRASYMAS
-
-patekti galima tik prisijungus – router blocking/protectedRoute
-Įsivaizduojame kad supildę formą skuriame parduotuvės įrašą ir siunčiame į back endą.
-Šis puslapis turės meniu juostą (logotipas, shops, add-shop, logout nuorodos) bei 
-formą, kurią užpildžius – išsiųs į firebase realtime database serverį (adresą rasite 
-  savo firebase konsolėje). Bet kokį atsaką, sėkmingą ar ne, atvaizduojame su atitinkamu
-  notificationu.
-  
-  Formos laukai, validacijos: 
-  
-  • shopName: input - (stringas, minimum 4 simboliai, privalomas laukas )
-  • town: input - (stringas, minimum 4 simboliai, privalomas laukas )
-  • startYear: input (skaicius, 4 simboliai, min 1970, max 2022, privalomas laukas)
-  • description: textarea - (stringas, mažiausiai 6 simboliai privalomas laukas)
-  • ImageUrl: input (stringas, min 5, privalomas)
-  
-  Po kiekvienu lauku individualiai atvaizduojama klaida kuri neatitinka validacijos.
-  
-  */
-
-// values
-const dummyData = {
-  image: 'https://picsum.photos/id/18/600/400',
-  title: 'Third fireBase post',
-  body: 'Third learned firebase today',
-  userId: 'aNzfUc40GpfkUXb8XVosjN7ni772',
-  archived: false,
-};
-
 function AddShopForm(props) {
   const { uId } = useAuthCtx();
-
+  let history = useHistory();
   const formik = useFormik({
     initialValues: {
-      shopName: 'testing Name',
-      town: 'kaunas',
+      shopName: 'RANDOM SHOP',
+      town: 'Kaunas',
       startYear: '1981',
-      description: 'smart products',
+      description: 'Basketball balls',
       ImageUrl: 'https://picsum.photos/200/300',
-      tagsStringInput: '',
-      tags: [],
       userId: uId,
       archived: false,
     },
@@ -82,16 +51,12 @@ function AddShopForm(props) {
 
     onSubmit: (values) => {
       values.userId = uId;
-      console.log('uId ===', uId);
       const handleNewShop = async () => {
         const url = `${import.meta.env.VITE_REAL_DB_URL}/r-exam/shops.json`;
-        console.log('url ===', url);
 
         const [ats, err] = await sendRequest(values, url);
-        console.log('values.userId ===', values.userId);
-        console.log('values ===', values);
-        console.log('ats ===', ats);
-        console.log('err ===', err);
+        history.push('/shops');
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       };
       handleNewShop();
     },

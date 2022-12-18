@@ -26,16 +26,8 @@ Siunčiamas objektas I back { email: ‘’, password: ‘’ }
 
 function RegistrationForm(props) {
   // IMPORTING CONTEXT
-  const { login, isUserLoggedIn } = useAuthCtx();
-
-  //  ============== User Log in State =============
-  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
-
-  // //
-  // const handleLogout = () => {
-  //   setIsUserLoggedIn((prevState) => !prevState);
-  // };
-  // ==========================================
+  const { login, isUserLoggedIn, loadingState, changeLoadingState } =
+    useAuthCtx();
 
   let history = useHistory();
 
@@ -54,11 +46,12 @@ function RegistrationForm(props) {
         .min(4, 'entered email is too short')
         .max(120)
         .required('required field'),
-      password: Yup.string().min(4).max(20).required(),
+      password: Yup.string().min(6).max(20).required(),
     }),
     // ==============================  ON FORMIK SUBMIT ===========================================
     onSubmit: async (values) => {
-      console.log('values ===', values);
+      console.log('loadingState ===', loadingState);
+      // changeLoadingState();
 
       let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
         import.meta.env.VITE_API_KEY
@@ -86,26 +79,46 @@ function RegistrationForm(props) {
               return 'invalid email';
             case 'EMAIL_EXISTS':
               return 'such user already exist';
+            case 'EMAIL_NOT_FOUND':
+              return 'User does not exist, please Sign Up';
             default:
               break;
           }
         };
+        const passwordErrorValidation = () => {
+          switch (postError.error.message) {
+            case 'EMAIL_NOT_FOUND':
+              return '';
+            case 'INVALID_PASSWORD':
+              return 'Wrong Password';
+            default:
+              return split();
+          }
+          function split() {
+            if (postError.error.message.includes(':')) {
+              return postError.error.message.split(':')[1];
+            } else {
+              return postError.error.message;
+            }
+          }
+        };
         formik.setErrors({
           email: emailErrorValidation(),
-          password: postError.error.message.includes(':')
-            ? postError.error.message.split(':')[1]
-            : postError.error.message,
+          password: passwordErrorValidation(),
         });
         // ==========================
         return;
       }
       // jeigu nera klaidu:    ===============  ON SUCESSFUL SUBMIT ====================================
-      console.log('sendResult ===', sendResult);
+      // console.log('sendResult ===', sendResult);
       history.push('/shops');
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       login(sendResult);
     },
   });
+
+  // changeLoadingState();
+  // console.log('loadingState ===', loadingState);
 
   return (
     <Container className={css.container}>
@@ -124,10 +137,7 @@ function RegistrationForm(props) {
           </span>
         </p>
       )}
-      {/* <h3>
-        debug <br /> email: {formik.values.email} <br />
-        password: {formik.values.password}
-      </h3> */}
+
       <form
         className={css.control}
         onSubmit={formik.handleSubmit}
@@ -166,12 +176,6 @@ function RegistrationForm(props) {
             ? 'Create new account'
             : 'Login with existing account'}
         </Button>
-        {/* <p>Forgot password?</p> */}
-        <button type='button' onClick={() => console.log('clicked')}>
-          {/* {isUserLoggedIn
-            ? 'Create new account'
-            : 'Login with existing account'} */}
-        </button>
       </form>
     </Container>
   );

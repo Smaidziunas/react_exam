@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // NEBUTINA, padaro AUTOCOMPLETE
 export const AuthContext = createContext({
@@ -8,6 +9,8 @@ export const AuthContext = createContext({
   token: '',
   email: '',
   uId: '',
+  loadingState: false,
+  changeLoadingState() {},
 });
 
 AuthContext.displayName = 'Auth-Context';
@@ -15,6 +18,8 @@ AuthContext.displayName = 'Auth-Context';
 const tokenName = 'firebaseIDToken';
 
 function AuthContextProvider(props) {
+  let history = useHistory();
+
   // CHECKING IF TOKEN EXIST (virs state nes kodas yra sinchroninis, tdl ivykdomas pirmiausia):
   const tokenFromStorage = localStorage.getItem(tokenName);
   const emailFromStorage = localStorage.getItem('email');
@@ -23,12 +28,16 @@ function AuthContextProvider(props) {
   );
   // IMPORTING AND SETTING f()
 
+  // =================== STATES: ================================
   // setting token:
   const [token, setToken] = useState(tokenFromStorage);
   // when token is SET, token = true; if not set, then = false
   const [emailVal, setEmailVal] = useState(emailFromStorage);
   const [uId, setUId] = useState(userIdFromStorage);
   const isUserLoggedIn = !!token;
+
+  // is loading context
+  const [loadingState, setLoadingState] = useState(false);
 
   const login = ({ idToken: token, email, localId }) => {
     // ON LOGIN:
@@ -51,6 +60,11 @@ function AuthContextProvider(props) {
     localStorage.removeItem(tokenName);
     localStorage.removeItem('email');
     localStorage.removeItem('localId_from_firebase_Auth_result');
+    history.push('/home');
+  };
+
+  const changeLoadingState = () => {
+    setLoadingState((prevState) => !prevState);
   };
 
   // const contextValue = { // KADANGI VIENODOS, GALIME NERASYTI 2x:
@@ -59,7 +73,6 @@ function AuthContextProvider(props) {
   //   isUserLoggedIn: isUserLoggedIn,
   //   token: token,
   // };
-
   const contextValue = {
     login,
     logout,
@@ -67,6 +80,8 @@ function AuthContextProvider(props) {
     token,
     email: emailVal,
     uId,
+    loadingState,
+    changeLoadingState,
   };
 
   return (

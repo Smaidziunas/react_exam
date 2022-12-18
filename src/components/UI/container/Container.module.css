@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  max-width: 560px;
+  max-width: 500px;
   flex-direction: column;
   background-color: #b7c8ff;
   margin-left: auto;
@@ -11,7 +11,7 @@
   height: 4px;
   width: 55px;
   display: block;
-  margin: 0px auto 60px;
+  margin: 0px auto 45px;
   background-color: var(--primary-blue);
 }
 

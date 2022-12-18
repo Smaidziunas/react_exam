@@ -4,6 +4,7 @@
   position: absolute;
   font-size: 0.7rem;
   color: tomato;
+  max-width: 360px;
 }
 
 .message .red {

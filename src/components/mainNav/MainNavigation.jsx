@@ -10,7 +10,7 @@ const MainNavigation = () => {
   // const ctx = useContext(AuthContext);
   // console.log('ctx ===', ctx.isUserLoggedIn);
   // DESTRUCTURING IsUserLoggedIn part FROM context
-  console.log('isUserLoggedIn ===', isUserLoggedIn);
+  // console.log('isUserLoggedIn ===', isUserLoggedIn);
 
   return (
     <header className={`${css.container} ${css.flex}`}>

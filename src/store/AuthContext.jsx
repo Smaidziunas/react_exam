@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 // NEBUTINA, padaro AUTOCOMPLETE
 export const AuthContext = createContext({

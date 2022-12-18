@@ -18,7 +18,7 @@ const MainNavigation = () => {
         <div>
           <img
             className={css.img}
-            src='public/—Pngtree—shopping mall logo_5406131.png'
+            src='/—Pngtree—shopping mall logo_5406131.png'
             alt=''
           />
         </div>

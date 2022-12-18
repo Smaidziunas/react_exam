@@ -8,26 +8,23 @@ import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuthCtx } from '../../store/AuthContext';
 import { sendRequest } from '../../helpers';
-/* APRASYMAS
-Register puslapis
-Šis puslapis turės meniu juostą (logotipas, login ir register nuorodos), 
-formą su el. 
-paštu ir slaptažodžiu – įvedus kreipiasi į firebase serverį. 
-
-Sėkminga ar nesėkminga registracija išmeta notificationą (įskaičiuoti visus įmanomus 
-error handlingus).
-
-Formoje validuojam: 
-• Email: (stringas, email tipo, privalomas laukas )
-• Password: (stringas, mažiausiai 6 simboliai privalomas laukas)
-Siunčiamas objektas I back { email: ‘’, password: ‘’ }
-
-*/
+import toast, { Toaster } from 'react-hot-toast';
 
 function RegistrationForm(props) {
   // IMPORTING CONTEXT
   const { login, isUserLoggedIn, loadingState, changeLoadingState } =
     useAuthCtx();
+
+  const successNotif = () => toast(fn);
+
+  const fn = () => {
+    if (props.register) {
+      return 'welcome on board!';
+    }
+    if (props.login) {
+      return 'welcome back!';
+    }
+  };
 
   let history = useHistory();
 
@@ -50,7 +47,7 @@ function RegistrationForm(props) {
     }),
     // ==============================  ON FORMIK SUBMIT ===========================================
     onSubmit: async (values) => {
-      console.log('loadingState ===', loadingState);
+      // console.log('loadingState ===', loadingState);
       // changeLoadingState();
 
       let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
@@ -111,9 +108,12 @@ function RegistrationForm(props) {
       }
       // jeigu nera klaidu:    ===============  ON SUCESSFUL SUBMIT ====================================
       // console.log('sendResult ===', sendResult);
+
       history.push('/shops');
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       login(sendResult);
+      // const successNotif = () => toast(fn);
+      // successNotif();
     },
   });
 
@@ -171,7 +171,8 @@ function RegistrationForm(props) {
           {/* // FORMIK ERRORS <<<<FE>>>> */}
           <InputError formik={formik} field={'password'} />
         </div>
-        <Button secondary>
+
+        <Button onClick={successNotif} secondary>
           {props.register
             ? 'Create new account'
             : 'Login with existing account'}

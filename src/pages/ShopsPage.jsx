@@ -1,25 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFetch from '../components/hooks/useFetch';
 import ShopCard from '../components/shopCard/ShopCard';
 import Grid from '../components/UI/grid/Grid';
 import { getFormInfo } from '../helpers';
 
 function ShopsPage(props) {
+  // debugger;
+
+  const [shop, setShop] = useState(2);
+
   const url = `${import.meta.env.VITE_REAL_DB_URL}/r-exam/shops.json`;
-
   const [dataFromFireBase, setDataFromFireBase] = useFetch(url);
-
   const dataArr = getFormInfo(dataFromFireBase);
-
   let isLoading = dataArr.length === 0 ? true : false;
-  let noShops = dataArr.length === 0 ? true : false;
 
-  console.log('isLoading ===', isLoading);
-  console.log('dataArr ===', dataArr);
+  useEffect(() => {
+    return () => {
+      setShop(1);
+    };
+  }, [dataArr]);
 
   return (
     <div className='container'>
-      {isLoading && <h2>Loading</h2>}
+      {isLoading && shop === 2 && <h2>Loading</h2>}
       <Grid>
         {dataArr.map((oneShopCard) => (
           <li className='center' key={oneShopCard.id}>
@@ -33,7 +36,9 @@ function ShopsPage(props) {
           </li>
         ))}
       </Grid>
-      {noShops && <h2 className='fz2rem'>No Shops registered yet</h2>}
+      {shop === 1 && isLoading && (
+        <h2 className='fz2rem'>No Shops registered yet</h2>
+      )}
     </div>
   );
 }

@@ -15,7 +15,13 @@ const MainNavigation = () => {
   return (
     <header className={`${css.container} ${css.flex}`}>
       <Link to='/'>
-        <div>LOGO</div>
+        <div>
+          <img
+            className={css.img}
+            src='public/—Pngtree—shopping mall logo_5406131.png'
+            alt=''
+          />
+        </div>
       </Link>
       <nav>
         <div className={css.div}>

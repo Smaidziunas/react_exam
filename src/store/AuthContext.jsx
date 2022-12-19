@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 
-// NEBUTINA, padaro AUTOCOMPLETE
+// padaro AUTOCOMPLETE
 export const AuthContext = createContext({
   login({ token, email }) {},
   logout() {},
@@ -10,8 +10,9 @@ export const AuthContext = createContext({
   token: '',
   email: '',
   uId: '',
-  loadingState: false,
-  changeLoadingState() {},
+  notifyShop() {},
+  notifySuccess() {},
+  notifyLogOut() {},
 });
 
 AuthContext.displayName = 'Auth-Context';
@@ -37,8 +38,9 @@ function AuthContextProvider(props) {
   const [uId, setUId] = useState(userIdFromStorage);
   const isUserLoggedIn = !!token;
 
-  // is loading context
-  const [loadingState, setLoadingState] = useState(false);
+  const notifySuccess = () => toast.success('welcome', { duration: 1000 });
+  const notifyLogOut = () => toast('see you next time!', { duration: 1000 });
+  const notifyShop = () => toast.success('another shop is added');
 
   const login = ({ idToken: token, email, localId }) => {
     // ON LOGIN:
@@ -54,18 +56,15 @@ function AuthContextProvider(props) {
     setUId(localId);
     // setting userID localStorage:
     localStorage.setItem('localId_from_firebase_Auth_result', localId);
+    // logoutHandler();
   };
 
   const logout = () => {
+    history.push('/login');
     setToken('');
     localStorage.removeItem(tokenName);
     localStorage.removeItem('email');
     localStorage.removeItem('localId_from_firebase_Auth_result');
-    history.push('/home');
-  };
-
-  const changeLoadingState = () => {
-    setLoadingState((prevState) => !prevState);
   };
 
   // const contextValue = { // KADANGI VIENODOS, GALIME NERASYTI 2x:
@@ -81,8 +80,9 @@ function AuthContextProvider(props) {
     token,
     email: emailVal,
     uId,
-    loadingState,
-    changeLoadingState,
+    notifyShop,
+    notifySuccess,
+    notifyLogOut,
   };
 
   return (

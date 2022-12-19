@@ -6,11 +6,12 @@ import css from './MainNavigation.module.css';
 
 const MainNavigation = () => {
   // IMPORTING CONTEXT:
-  const { isUserLoggedIn, logout, login } = useAuthCtx();
-  // const ctx = useContext(AuthContext);
-  // console.log('ctx ===', ctx.isUserLoggedIn);
-  // DESTRUCTURING IsUserLoggedIn part FROM context
-  // console.log('isUserLoggedIn ===', isUserLoggedIn);
+  const { isUserLoggedIn, logout, notifyLogOut } = useAuthCtx();
+
+  const logoutHandler = (event) => {
+    logout();
+    notifyLogOut();
+  };
 
   return (
     <header className={`${css.container} ${css.flex}`}>
@@ -61,12 +62,7 @@ const MainNavigation = () => {
             )}
             {isUserLoggedIn && (
               <li>
-                <Button
-                  onClick={() => {
-                    logout();
-                  }}
-                  btnNav
-                >
+                <Button onClick={logoutHandler} btnNav>
                   Logout
                 </Button>
               </li>

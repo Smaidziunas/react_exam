@@ -9,7 +9,7 @@ import InputError from '../UI/inputError/InputError';
 import css from './AddShopForm.module.css';
 
 function AddShopForm(props) {
-  const { uId } = useAuthCtx();
+  const { uId, notifyShop } = useAuthCtx();
   let history = useHistory();
   const formik = useFormik({
     initialValues: {
@@ -57,6 +57,7 @@ function AddShopForm(props) {
         const [ats, err] = await sendRequest(values, url);
         history.push('/shops');
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        notifyShop();
       };
       handleNewShop();
     },

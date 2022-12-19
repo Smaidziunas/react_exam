@@ -5,8 +5,6 @@ import Grid from '../components/UI/grid/Grid';
 import { getFormInfo } from '../helpers';
 
 function ShopsPage(props) {
-  // debugger;
-
   const [shop, setShop] = useState(2);
 
   const url = `${import.meta.env.VITE_REAL_DB_URL}/r-exam/shops.json`;

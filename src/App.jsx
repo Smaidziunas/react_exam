@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Layout from './components/Layout/Layout';
@@ -38,6 +39,7 @@ function App() {
           </Route>
         </Switch>
       </Layout>
+      <Toaster />
     </div>
   );
 }

@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;800;900&display=swap');
+
+* {
+  box-sizing: border-box;
+  --main-font: #212121;
+  --primary-blue: #2260e6;
+  --primary-border: rgb(233, 221, 208);
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+  /* background-color: #a29cf4; */
+  /* background: radial-gradient(
+    64.18% 64.18% at 71.16% 35.69%,
+    #d7f7f8 0.89%,
+    #bef3f5 17.23%,
+    #9dedf0 42.04%,
+    #7de7eb 55.12%,
+    #5ce1e6 71.54%,
+    #33bbcf 100%
+  ); */
+  background-color: #fbde77;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  /* padding-bottom: 300px; */
+  cursor: default;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+
+li {
+  list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  border-radius: 5px;
+}
+
+.container h2, h1 {
+  text-align: center;
+}
+
+.textAlign {
+  text-align: center;
+}
+
+.nav-link.active {
+  border-bottom: 4px solid var(--primary-blue);
+}
+
+.center {
+  justify-self: center;
+}
+
+.fz2rem {
+  font-size: 2rem;
+}
+
+.underline {
+  text-decoration: underline;
+}

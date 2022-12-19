@@ -1,0 +1,23 @@
+.message {
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  font-size: 0.7rem;
+  color: tomato;
+  max-width: 360px;
+}
+
+.message .red {
+  color: rgb(156, 60, 43);
+}
+
+.addingShop {
+  top: -1rem;
+  left: 2px;
+  position: absolute;
+  grid-column: 2/3;
+}
+
+.placeholder {
+  top:-2rem;
+}

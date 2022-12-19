@@ -1,8 +1,9 @@
+import RegistrationForm from '../components/auth/Registration';
+
 function RegisterPage(props) {
   return (
-    <div>
-      <h1>Registracijos forma, turi nav</h1>
-      <p>FORMA</p>
+    <div className='container'>
+      <RegistrationForm register />
     </div>
   );
 }

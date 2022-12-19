@@ -1,0 +1,14 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  row-gap: 25px;
+}
+
+
+.shopCard {
+  margin-top: 100px;
+  width: 280px;
+  row-gap: 2rem;
+  padding: 0.5rem 1rem;
+}

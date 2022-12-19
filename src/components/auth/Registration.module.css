@@ -1,0 +1,43 @@
+.control input {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4375em;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    cursor: text;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    height: 50px;
+    border: 1px solid  #b7c8ff;
+}
+
+.control input:focus {
+  border: 1px solid rgb(90, 145, 247);
+}
+
+.control div {
+padding-bottom: 30px;
+}
+
+
+.control label {
+  font-size: 0.85rem;
+}
+
+.notAMember {
+  margin: 0;
+    font-family: 'Work Sans',sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.toLogin {
+  text-decoration: underline;
+  cursor: pointer;
+}
